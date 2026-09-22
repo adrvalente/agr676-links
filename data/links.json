@@ -18,6 +18,15 @@
       "featured": true
     },
     {
+      "id": "facebook",
+      "icon": "ⓕ",
+      "title": "Facebook",
+      "subtitle": "Notícias e comunidade",
+      "url": "#",
+      "enabled": true,
+      "featured": false
+    },
+    {
       "id": "activities",
       "icon": "📅",
       "title": "Próximas atividades",
@@ -40,15 +49,6 @@
       "icon": "🌐",
       "title": "Visitar o nosso site",
       "subtitle": "Conhece o Agrupamento 676",
-      "url": "#",
-      "enabled": true,
-      "featured": false
-    },
-    {
-      "id": "facebook",
-      "icon": "ⓕ",
-      "title": "Facebook",
-      "subtitle": "Notícias e comunidade",
       "url": "#",
       "enabled": true,
       "featured": false
