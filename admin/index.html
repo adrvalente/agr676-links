@@ -1,1 +1,46 @@
-<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CMS · 676</title><link rel="stylesheet" href="admin.css"></head><body><header><div>⚜ <b>Agrupamento 676 · CMS</b></div><a href="../" target="_blank">Abrir site ↗</a></header><main><section class="bar"><div><b>Gestão de Links</b><small>Alterações guardadas localmente até exportares o JSON.</small></div><div><button id="github">⚙ GitHub</button><button id="import">Importar JSON</button><button id="export">Exportar JSON</button><button class="publish" id="publish">🚀 Publicar</button><button class="primary" id="new">＋ Novo botão</button><input type="file" id="file" accept=".json" hidden></div></section><div class="layout"><section><h2>Links <span id="count"></span></h2><div id="list"></div></section><aside><h2>Pré-visualização</h2><iframe id="preview"></iframe></aside></div></main><dialog id="dlg"><form><h2 id="dlgTitle">Novo botão</h2><input id="id" type="hidden"><label>Ícone<input id="icon" placeholder="🔗"></label><label>Título<input id="title" required></label><label>Subtítulo<input id="subtitle"></label><label>URL<input id="url" placeholder="https://..."></label><div class="checks"><label><input type="checkbox" id="enabled"> Publicado</label><label><input type="checkbox" id="featured"> Destacado</label></div><div class="actions"><button type="button" id="cancel">Cancelar</button><button type="button" class="primary" id="save">Guardar</button></div></form></dialog><dialog id="ghdlg"><form><h2>Ligação ao GitHub</h2><p class="help">A credencial não é gravada no projeto: fica apenas nesta sessão do navegador.</p><label>Repositório<input id="ghrepo" value="adrvalente/agr676-links"></label><label>Branch<input id="ghbranch" value="main"></label><label>Ficheiro<input id="ghpath" value="data/links.json"></label><label>Fine-grained token<input id="ghtoken" type="password" autocomplete="off" placeholder="github_pat_..."></label><p class="help">Limita o token apenas a este repositório e a Contents: Read and write.</p><div class="actions"><button type="button" id="ghlogout">Desligar</button><button type="button" id="ghcancel">Cancelar</button><button type="button" class="primary" id="ghsave">Guardar sessão</button></div></form></dialog><div id="statusbar" class="statusbar">GitHub: não configurado</div><script src="admin.js"></script></body></html>
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CMS · Agrupamento 676</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<section id="authScreen" class="auth-screen">
+  <div class="login-card">
+    <img src="../assets/logo-676.svg" alt="Agrupamento 676" class="login-logo">
+    <p class="eyebrow">AGRUPAMENTO 676 · CRISTO-REI</p>
+    <h1>676 CMS</h1>
+    <p class="muted">Área reservada à administração.</p>
+    <form id="loginForm">
+      <label>Utilizador<input id="loginUsername" autocomplete="username" value="adriano" required></label>
+      <label>Password<input id="loginPassword" type="password" autocomplete="current-password" required></label>
+      <button class="primary login-button" id="loginButton" type="submit">Entrar no CMS</button>
+      <p id="loginError" class="error" aria-live="polite"></p>
+    </form>
+    <small class="api-state" id="apiState">A verificar sessão…</small>
+  </div>
+</section>
+
+<div id="cmsApp" hidden>
+<header>
+  <div>⚜ <b>Agrupamento 676 · CMS</b> <span class="version">V1.3</span></div>
+  <div class="userbox"><span id="userLabel">—</span><a href="../" target="_blank">Abrir site ↗</a><button id="logout">Sair</button></div>
+</header>
+<main>
+  <section class="bar">
+    <div><b>Gestão de Links</b><small id="saveState">Alterações guardadas localmente.</small></div>
+    <div><button id="import">Importar JSON</button><button id="export">Exportar JSON</button><button class="publish" id="publish" disabled title="Será ativado após configurar a GitHub App">🚀 Publicar</button><button class="primary" id="new">＋ Novo botão</button><input type="file" id="file" accept=".json" hidden></div>
+  </section>
+  <div class="notice">🔐 Sessão protegida pelo Cloudflare Worker. O PAT da V1.2 foi removido do browser. A publicação será ligada ao backend através da GitHub App.</div>
+  <div class="layout">
+    <section><h2>Links <span id="count"></span></h2><div id="list"></div></section>
+    <aside><h2>Pré-visualização</h2><iframe id="preview"></iframe></aside>
+  </div>
+</main>
+<dialog id="dlg"><form><h2 id="dlgTitle">Novo botão</h2><input id="id" type="hidden"><label>Ícone<input id="icon" placeholder="🔗"></label><label>Título<input id="title" required></label><label>Subtítulo<input id="subtitle"></label><label>URL<input id="url" placeholder="https://..."></label><div class="checks"><label><input type="checkbox" id="enabled"> Publicado</label><label><input type="checkbox" id="featured"> Destacado</label></div><div class="actions"><button type="button" id="cancel">Cancelar</button><button type="button" class="primary" id="save">Guardar</button></div></form></dialog>
+<div id="statusbar" class="statusbar ok">Cloudflare: sessão autenticada</div>
+</div>
+<script src="admin.js"></script>
+</body></html>
