@@ -18,15 +18,6 @@
       "featured": true
     },
     {
-      "id": "site",
-      "icon": "🌐",
-      "title": "Visitar o nosso site",
-      "subtitle": "Conhece o Agrupamento 676",
-      "url": "#",
-      "enabled": true,
-      "featured": false
-    },
-    {
       "id": "activities",
       "icon": "📅",
       "title": "Próximas atividades",
@@ -40,6 +31,15 @@
       "icon": "📸",
       "title": "Instagram",
       "subtitle": "Acompanha as nossas aventuras",
+      "url": "#",
+      "enabled": true,
+      "featured": false
+    },
+    {
+      "id": "site",
+      "icon": "🌐",
+      "title": "Visitar o nosso site",
+      "subtitle": "Conhece o Agrupamento 676",
       "url": "#",
       "enabled": true,
       "featured": false
