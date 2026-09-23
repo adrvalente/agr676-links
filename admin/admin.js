@@ -1,4 +1,79 @@
-const KEY='agr676-cms-v149';let state,drag;const $=s=>document.querySelector(s),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);async function init(){try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){}if(!state)state=await(await fetch('../data/links.json',{cache:'no-store'})).json();save(false);render()}function save(r=true){localStorage.setItem(KEY,JSON.stringify(state));if(r)render()}function render(){$('#count').textContent=`(${state.links.length})`;$('#list').innerHTML=state.links.map((x,i)=>`<div class="item ${x.enabled?'':'off'}" draggable="true" data-id="${x.id}"><span class="drag">≡</span><span class="ico">${x.icon||'🔗'}</span><span class="text"><b>${x.title}</b><small>${x.subtitle||x.url}</small><span class="tag">${x.enabled?'Publicado':'Oculto'}</span>${x.featured?'<span class="tag gold">Destacado</span>':''}</span><span class="ctrl"><button data-a="up">↑</button><button data-a="down">↓</button><button data-a="toggle">${x.enabled?'Ocultar':'Publicar'}</button><button data-a="edit">Editar</button><button data-a="delete" class="del">Apagar</button></span></div>`).join('');document.querySelectorAll('.item').forEach(el=>{el.ondragstart=()=>drag=el.dataset.id;el.ondragover=e=>e.preventDefault();el.ondrop=()=>{if(!drag||drag===el.dataset.id)return;let a=state.links.findIndex(x=>x.id===drag),b=state.links.findIndex(x=>x.id===el.dataset.id),m=state.links.splice(a,1)[0];state.links.splice(b,0,m);save()};el.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>act(el.dataset.id,b.dataset.a))});preview()}function act(id,a){let i=state.links.findIndex(x=>x.id===id),x=state.links[i];if(a==='up'&&i>0)[state.links[i-1],state.links[i]]=[state.links[i],state.links[i-1]];if(a==='down'&&i<state.links.length-1)[state.links[i+1],state.links[i]]=[state.links[i],state.links[i+1]];if(a==='toggle')x.enabled=!x.enabled;if(a==='delete'){if(!confirm('Apagar este botão?'))return;state.links.splice(i,1)}if(a==='edit')return open(x);save()}function open(x={}){$('#id').value=x.id||'';$('#icon').value=x.icon||'🔗';$('#title').value=x.title||'';$('#subtitle').value=x.subtitle||'';$('#url').value=x.url||'';$('#enabled').checked=x.enabled??true;$('#featured').checked=x.featured??false;$('#dlgTitle').textContent=x.id?'Editar botão':'Novo botão';$('#dlg').showModal()}$('#new').onclick=()=>open();$('#cancel').onclick=()=>$('#dlg').close();$('#save').onclick=()=>{if(!$('#title').value.trim())return alert('Indica um título.');let id=$('#id').value||uid(),obj={id,icon:$('#icon').value||'🔗',title:$('#title').value.trim(),subtitle:$('#subtitle').value.trim(),url:$('#url').value.trim()||'#',enabled:$('#enabled').checked,featured:$('#featured').checked},old=state.links.find(x=>x.id===id);old?Object.assign(old,obj):state.links.push(obj);$('#dlg').close();save()};$('#export').onclick=()=>{let b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='links.json';a.click()};$('#import').onclick=()=>$('#file').click();$('#file').onchange=async e=>{try{let j=JSON.parse(await e.target.files[0].text());if(!Array.isArray(j.links))throw 0;state=j;save()}catch(e){alert('JSON inválido')}};function preview(){let d=JSON.stringify(state).replace(/</g,'\\u003c');$('#preview').srcdoc=`<style>*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:28px 13px;background:linear-gradient(160deg,#214d3a,#0c2a20 72%);font-family:Arial;color:#17342a}.h{text-align:center;color:white}.l{width:75px;height:75px;margin:auto;border-radius:50%;background:#f5f0e5;display:grid;place-items:center;font-size:30px;color:#173d2d}.h h1{margin:10px}.h em{color:#e4b84f;font-style:normal}.h p{font-size:11px}.m{font-family:Georgia;font-style:italic;margin:18px!important}.m b{color:#f3ca68}.links{display:grid;gap:9px}.a{display:grid;grid-template-columns:38px 1fr 15px;align-items:center;background:white;border-radius:13px;padding:9px}.a.f{background:linear-gradient(135deg,#efc95e,#dca73d)}.i{width:34px;height:34px;display:grid;place-items:center;background:#173d2d12;border-radius:9px}.a b{font-size:12px}.a small{display:block;font-size:9px;color:#718079}</style><div id="x"></div><script>const d=${d};document.querySelector('#x').innerHTML='<div class="h"><div class="l">⚜</div><h1>'+d.site.title+' <em>'+d.site.number+'</em></h1><p>'+d.site.place+'</p><p class="m">'+d.site.motto+'<br><b>'+d.site.mottoStrong+'</b></p></div><div class="links">'+d.links.filter(x=>x.enabled).map(x=>'<div class="a '+(x.featured?'f':'')+'"><span class="i">'+x.icon+'</span><span><b>'+x.title+'</b><small>'+x.subtitle+'</small></span><span>›</span></div>').join('')+'</div>'<\/script>`}
+const KEY='agr676-cms-v1410';
+let state,drag;
+const $=s=>document.querySelector(s),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+
+async function init(){
+  try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+  if(!state)state=await(await fetch('../data/links.json',{cache:'no-store'})).json();
+  state.links=(state.links||[]).map(x=>({...x,type:x.type||'link'}));
+  save(false);render();
+}
+function save(r=true){localStorage.setItem(KEY,JSON.stringify(state));if(r)render()}
+function isDivider(x){return x?.type==='divider'}
+function render(){
+  $('#count').textContent=`(${state.links.length})`;
+  $('#list').innerHTML=state.links.map(x=>isDivider(x)?`
+    <div class="item divider-item ${x.enabled?'':'off'}" draggable="true" data-id="${x.id}">
+      <span class="drag">≡</span><span class="ico divider-ico">—</span>
+      <span class="text"><b>${escapeHtml(x.title||'Divider')}</b><small>Separador · ${escapeHtml(dividerStyleLabel(x.style))}</small><span class="tag">${x.enabled?'Publicado':'Oculto'}</span></span>
+      <span class="ctrl"><button data-a="up">↑</button><button data-a="down">↓</button><button data-a="toggle">${x.enabled?'Ocultar':'Publicar'}</button><button data-a="edit">Editar</button><button data-a="delete" class="del">Apagar</button></span>
+    </div>`:`
+    <div class="item ${x.enabled?'':'off'}" draggable="true" data-id="${x.id}">
+      <span class="drag">≡</span><span class="ico">${escapeHtml(x.icon||'🔗')}</span>
+      <span class="text"><b>${escapeHtml(x.title)}</b><small>${escapeHtml(x.subtitle||x.url)}</small><span class="tag">${x.enabled?'Publicado':'Oculto'}</span>${x.featured?'<span class="tag gold">Destacado</span>':''}</span>
+      <span class="ctrl"><button data-a="up">↑</button><button data-a="down">↓</button><button data-a="toggle">${x.enabled?'Ocultar':'Publicar'}</button><button data-a="edit">Editar</button><button data-a="delete" class="del">Apagar</button></span>
+    </div>`).join('');
+  document.querySelectorAll('.item').forEach(el=>{
+    el.ondragstart=()=>drag=el.dataset.id;el.ondragover=e=>e.preventDefault();el.ondrop=()=>{if(!drag||drag===el.dataset.id)return;let a=state.links.findIndex(x=>x.id===drag),b=state.links.findIndex(x=>x.id===el.dataset.id),m=state.links.splice(a,1)[0];state.links.splice(b,0,m);save()};
+    el.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>act(el.dataset.id,b.dataset.a));
+  });
+  preview();
+}
+function dividerStyleLabel(style){return style==='line'?'Linha':style==='fleur'?'Flor-de-lis':'Linha + título'}
+function act(id,a){
+  let i=state.links.findIndex(x=>x.id===id),x=state.links[i];
+  if(a==='up'&&i>0)[state.links[i-1],state.links[i]]=[state.links[i],state.links[i-1]];
+  if(a==='down'&&i<state.links.length-1)[state.links[i+1],state.links[i]]=[state.links[i],state.links[i+1]];
+  if(a==='toggle')x.enabled=!x.enabled;
+  if(a==='delete'){if(!confirm(isDivider(x)?'Apagar este divider?':'Apagar este botão?'))return;state.links.splice(i,1)}
+  if(a==='edit')return isDivider(x)?openDivider(x):openLink(x);
+  save();
+}
+function setDialogMode(mode){
+  const divider=mode==='divider';
+  $('#entryType').value=mode;
+  $('#linkFields').hidden=divider;
+  $('#dividerFields').hidden=!divider;
+  $('#featuredWrap').hidden=divider;
+  $('#dlgTitle').textContent=divider?'Novo divider':'Novo botão';
+}
+function openLink(x={}){
+  setDialogMode('link');$('#id').value=x.id||'';$('#icon').value=x.icon||'🔗';$('#title').value=x.title||'';$('#subtitle').value=x.subtitle||'';$('#url').value=x.url||'';$('#enabled').checked=x.enabled??true;$('#featured').checked=x.featured??false;$('#dlgTitle').textContent=x.id?'Editar botão':'Novo botão';$('#dlg').showModal();
+}
+function openDivider(x={}){
+  setDialogMode('divider');$('#id').value=x.id||'';$('#dividerTitle').value=x.title||'';$('#dividerStyle').value=x.style||'title';$('#enabled').checked=x.enabled??true;$('#dlgTitle').textContent=x.id?'Editar divider':'Novo divider';$('#dlg').showModal();
+}
+$('#new').onclick=()=>openLink();
+$('#newDivider').onclick=()=>openDivider();
+$('#cancel').onclick=()=>$('#dlg').close();
+$('#save').onclick=()=>{
+  const type=$('#entryType').value||'link',id=$('#id').value||uid();
+  let obj;
+  if(type==='divider'){
+    obj={id,type:'divider',title:$('#dividerTitle').value.trim(),style:$('#dividerStyle').value||'title',enabled:$('#enabled').checked};
+  }else{
+    if(!$('#title').value.trim())return alert('Indica um título.');
+    obj={id,type:'link',icon:$('#icon').value||'🔗',title:$('#title').value.trim(),subtitle:$('#subtitle').value.trim(),url:$('#url').value.trim()||'#',enabled:$('#enabled').checked,featured:$('#featured').checked};
+  }
+  const old=state.links.find(x=>x.id===id);old?Object.keys(old).forEach(k=>delete old[k]):null;old?Object.assign(old,obj):state.links.push(obj);$('#dlg').close();save();
+};
+$('#export').onclick=()=>{let b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='links.json';a.click()};
+$('#import').onclick=()=>$('#file').click();
+$('#file').onchange=async e=>{try{let j=JSON.parse(await e.target.files[0].text());if(!Array.isArray(j.links))throw 0;j.links=j.links.map(x=>({...x,type:x.type||'link'}));state=j;save()}catch(e){alert('JSON inválido')}};
+function preview(){
+  let d=JSON.stringify(state).replace(/</g,'\\u003c');
+  $('#preview').srcdoc=`<style>*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:28px 13px;background:linear-gradient(160deg,#214d3a,#0c2a20 72%);font-family:Arial;color:#17342a}.h{text-align:center;color:white}.l{width:75px;height:75px;margin:auto;border-radius:50%;background:#f5f0e5;display:grid;place-items:center;font-size:30px;color:#173d2d}.h h1{margin:10px}.h em{color:#e4b84f;font-style:normal}.h p{font-size:11px}.m{font-family:Georgia;font-style:italic;margin:18px!important}.m b{color:#f3ca68}.links{display:grid;gap:9px}.a{display:grid;grid-template-columns:38px 1fr 15px;align-items:center;background:white;border-radius:13px;padding:9px}.a.f{background:linear-gradient(135deg,#efc95e,#dca73d)}.i{width:34px;height:34px;display:grid;place-items:center;background:#173d2d12;border-radius:9px}.a b{font-size:12px}.a small{display:block;font-size:9px;color:#718079}.dv{display:flex;align-items:center;gap:8px;color:#f5e6b6;margin:8px 4px;font-size:9px;font-weight:bold;letter-spacing:.14em;text-transform:uppercase}.dv:before,.dv:after{content:'';height:1px;background:#ffffff38;flex:1}.dv.line span{display:none}.dv.fleur span{font-size:14px}.dv.fleur span:before{content:'⚜';font-size:14px}.dv.fleur .t{display:none}</style><div id="x"></div><script>const d=${d};const item=x=>x.type==='divider'?'<div class="dv '+(x.style||'title')+'"><span class="t">'+(x.title||'')+'</span></div>':'<div class="a '+(x.featured?'f':'')+'"><span class="i">'+x.icon+'</span><span><b>'+x.title+'</b><small>'+x.subtitle+'</small></span><span>›</span></div>';document.querySelector('#x').innerHTML='<div class="h"><div class="l">⚜</div><h1>'+d.site.title+' <em>'+d.site.number+'</em></h1><p>'+d.site.place+'</p><p class="m">'+d.site.motto+'<br><b>'+d.site.mottoStrong+'</b></p></div><div class="links">'+d.links.filter(x=>x.enabled).map(item).join('')+'</div>'<\/script>`;
+}
 
 const API='https://676-cms-api.adrvalente.workers.dev';
 

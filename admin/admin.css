@@ -30,3 +30,13 @@
 .user-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px}.user-actions button{min-height:38px;padding:7px 13px;border:1px solid #d8dfdc;border-radius:9px;background:#fff;color:#173d31;cursor:pointer;font-size:13px;font-weight:600}.user-actions button:hover{background:#f3f7f5;border-color:#bac9c2}.user-actions .danger{color:#a83939}
 .user-load-error{padding:14px;border:1px solid #ead0d0;border-radius:10px;background:#fff7f7;color:#9c3434}
 @media(max-width:750px){.user-row{grid-template-columns:1fr auto;gap:14px;padding:16px}.user-identity{grid-column:1/-1}.role-badge{grid-column:1}.user-status{grid-column:2;justify-self:end}.user-actions{grid-column:1/-1;justify-content:flex-start;flex-wrap:wrap}.user-actions button{flex:1}}
+
+
+/* =========================================================
+   V1.4.10 — Content Dividers
+   ========================================================= */
+.divider-item{border-style:dashed;background:#fbfcfb}.divider-item .divider-ico{font-weight:700;color:var(--gold);background:#173d2d0d}.divider-item .text b{color:#8b6a19;text-transform:uppercase;letter-spacing:.06em}.divider-item .text small{font-style:italic}
+#newDivider{border-color:#d7c38b;background:#fffaf0;color:#6f5719;font-weight:700}
+#newDivider:hover{background:#fff4d8}
+dialog select{display:block;width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;margin-top:5px;background:#fff;color:#18332a}
+@media(max-width:820px){.divider-item{grid-template-columns:20px 38px 1fr}.divider-item .ctrl{grid-column:3}}

@@ -25,7 +25,7 @@
 
 <div id="cmsApp" hidden>
 <header>
-  <div>⚜ <b>Agrupamento 676 · CMS</b> <span class="version">V1.4.9.3</span></div>
+  <div>⚜ <b>Agrupamento 676 · CMS</b> <span class="version">V1.4.10</span></div>
   <div class="userbox"><span id="userLabel">—</span><a href="../" target="_blank">Abrir site ↗</a><button id="logout">Sair</button></div>
 </header>
 <main>
@@ -45,7 +45,7 @@
   <div id="linksView" class="cms-view active">
 <section class="bar">
     <div><b>Gestão de Links</b><small id="saveState">Alterações guardadas localmente.</small></div>
-    <div><button id="import">Importar JSON</button><button id="export">Exportar JSON</button><button class="publish" id="publish" title="Será ativado após configurar a GitHub App">🚀 Publicar</button><button class="primary" id="new">＋ Novo botão</button><input type="file" id="file" accept=".json" hidden></div>
+    <div><button id="import">Importar JSON</button><button id="export">Exportar JSON</button><button class="publish" id="publish" title="Será ativado após configurar a GitHub App">🚀 Publicar</button><button id="newDivider">＋ Divider</button><button class="primary" id="new">＋ Novo botão</button><input type="file" id="file" accept=".json" hidden></div>
   </section>
   <div class="notice">🔐 Sessão protegida pelo Cloudflare Worker. O PAT da V1.2 foi removido do browser. Publicação segura através do Cloudflare Worker e GitHub App.</div>
   <div class="layout">
@@ -58,7 +58,7 @@
 <section id="siteView" class="cms-view"><div class="panel"><h2>Informações do site</h2><div id="siteEditor"></div><button id="saveSite" class="primary">Guardar alterações</button></div></section>
 <section id="historyView" class="cms-view admin-only"><div class="panel"><h2>Histórico de publicações</h2><div id="historyList">A carregar…</div></div></section>
 <section id="usersView" class="cms-view admin-only"><div class="panel"><div class="panel-head"><h2>Utilizadores</h2><button id="newUser" class="primary">+ Adicionar editor</button></div><div id="usersList">A carregar…</div></div></section>
-<dialog id="dlg"><form><h2 id="dlgTitle">Novo botão</h2><input id="id" type="hidden"><label>Ícone<input id="icon" placeholder="🔗"></label><label>Título<input id="title" required></label><label>Subtítulo<input id="subtitle"></label><label>URL<input id="url" placeholder="https://..."></label><div class="checks"><label><input type="checkbox" id="enabled"> Publicado</label><label><input type="checkbox" id="featured"> Destacado</label></div><div class="actions"><button type="button" id="cancel">Cancelar</button><button type="button" class="primary" id="save">Guardar</button></div></form></dialog>
+<dialog id="dlg"><form><h2 id="dlgTitle">Novo botão</h2><input id="id" type="hidden"><input id="entryType" type="hidden" value="link"><div id="linkFields"><label>Ícone<input id="icon" placeholder="🔗"></label><label>Título<input id="title"></label><label>Subtítulo<input id="subtitle"></label><label>URL<input id="url" placeholder="https://..."></label></div><div id="dividerFields" hidden><label>Título do divider <small>(opcional)</small><input id="dividerTitle" placeholder="Ex.: Redes Sociais"></label><label>Estilo<select id="dividerStyle"><option value="title">Linha + título</option><option value="line">Linha simples</option><option value="fleur">Flor-de-lis</option></select></label></div><div class="checks"><label><input type="checkbox" id="enabled"> Publicado</label><label id="featuredWrap"><input type="checkbox" id="featured"> Destacado</label></div><div class="actions"><button type="button" id="cancel">Cancelar</button><button type="button" class="primary" id="save">Guardar</button></div></form></dialog>
 <div id="statusbar" class="statusbar ok">Cloudflare: sessão autenticada</div>
 </div>
 <script src="admin.js"></script>

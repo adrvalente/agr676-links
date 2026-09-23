@@ -70,9 +70,18 @@ Nunca coloques passwords, PATs, chaves privadas ou outros segredos no repositór
 - O site público lê `site.logoPath`, `footerTitle`, `footerMotto` e `adminLabel`.
 
 
-## V1.4.9.3 — User Management UI
+## V1.4.10 — User Management UI
 - Novo layout responsivo para utilizadores.
 - Nome e @username separados visualmente.
 - Badge de perfil e estado ativo/desativado.
 - Ações de redefinir password e ativar/desativar editores.
 - Melhorias mobile.
+
+
+## V1.4.10 — Content Dividers
+- Novo elemento Divider no CMS.
+- Criar, editar, apagar, ocultar e reordenar dividers.
+- Estilos: linha simples, linha + título e flor-de-lis.
+- Preview em tempo real.
+- Publicação através do mesmo `data/links.json`.
+- Compatibilidade com links das versões anteriores (`type` omitido = link).
