@@ -85,3 +85,15 @@ Nunca coloques passwords, PATs, chaves privadas ou outros segredos no repositór
 - Preview em tempo real.
 - Publicação através do mesmo `data/links.json`.
 - Compatibilidade com links das versões anteriores (`type` omitido = link).
+
+
+## V1.4.10.1 — CMS State Sync
+
+- `data/links.json` publicado no GitHub é a fonte de verdade.
+- O CMS obtém sempre a versão publicada através do Worker ao iniciar sessão.
+- `localStorage` passa a guardar apenas rascunhos locais.
+- Rascunhos antigos são detetados e o utilizador escolhe recuperar ou usar a versão publicada.
+- Cada rascunho guarda o SHA da versão publicada em que foi baseado.
+- A publicação envia `baseSha`; o Worker bloqueia com HTTP 409 se outro utilizador tiver publicado entretanto.
+- Depois de publicar, o rascunho local é limpo e o novo SHA passa a ser a referência.
+- O endpoint `GET /api/content` devolve a versão oficial diretamente do GitHub.

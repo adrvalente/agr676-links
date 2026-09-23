@@ -1,14 +1,113 @@
-const KEY='agr676-cms-v1410';
+const KEY='agr676-cms-v14101';
+const LEGACY_KEYS=['agr676-cms-v1410','agr676-cms-v13'];
 let state,drag;
+let publishedSnapshot=null;
+let publishedSha=null;
+let draftMeta=null;
 const $=s=>document.querySelector(s),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 
-async function init(){
-  try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-  if(!state)state=await(await fetch('../data/links.json',{cache:'no-store'})).json();
-  state.links=(state.links||[]).map(x=>({...x,type:x.type||'link'}));
-  save(false);render();
+function normalizeState(data){
+  const clean=structuredClone(data||{});
+  clean.links=(clean.links||[]).map(x=>({...x,type:x.type||'link'}));
+  clean.site=clean.site||{};
+  return clean;
 }
-function save(r=true){localStorage.setItem(KEY,JSON.stringify(state));if(r)render()}
+function sameState(a,b){
+  try{return JSON.stringify(a)===JSON.stringify(b)}catch{return false}
+}
+function readDraft(){
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(raw){
+      const parsed=JSON.parse(raw);
+      if(parsed?.data) return parsed;
+      // Migração defensiva caso a chave contenha apenas o estado.
+      return {data:parsed,baseSha:null,savedAt:null,legacy:true};
+    }
+  }catch(e){}
+  for(const key of LEGACY_KEYS){
+    try{
+      const raw=localStorage.getItem(key);
+      if(raw){
+        const parsed=JSON.parse(raw);
+        if(parsed?.links) return {data:parsed,baseSha:null,savedAt:null,legacy:true,legacyKey:key};
+      }
+    }catch(e){}
+  }
+  return null;
+}
+function writeDraft(){
+  draftMeta={
+    data:state,
+    baseSha:publishedSha,
+    savedAt:new Date().toISOString(),
+    user:currentSession?.user?.username||null
+  };
+  localStorage.setItem(KEY,JSON.stringify(draftMeta));
+}
+function clearDraft(){
+  localStorage.removeItem(KEY);
+  LEGACY_KEYS.forEach(k=>localStorage.removeItem(k));
+  draftMeta=null;
+}
+async function getPublishedContent(){
+  const out=await api('/api/content',{method:'GET'});
+  if(!out?.data || !Array.isArray(out.data.links)) throw new Error('Conteúdo publicado inválido.');
+  return {data:normalizeState(out.data),sha:out.sha||null};
+}
+async function init(){
+  const remote=await getPublishedContent();
+  publishedSnapshot=structuredClone(remote.data);
+  publishedSha=remote.sha;
+  const local=readDraft();
+
+  state=structuredClone(remote.data);
+
+  if(local?.data){
+    const localData=normalizeState(local.data);
+    const differs=!sameState(localData,remote.data);
+    if(differs){
+      const stale=Boolean(local.baseSha && remote.sha && local.baseSha!==remote.sha);
+      const legacy=Boolean(local.legacy || !local.baseSha);
+      const message = stale
+        ? 'Existe um rascunho local criado sobre uma versão publicada mais antiga.\n\nA versão publicada foi alterada entretanto por outro utilizador ou dispositivo.\n\nOK = recuperar o rascunho local\nCancelar = usar a versão publicada atual'
+        : legacy
+          ? 'Foi encontrado um rascunho local antigo neste browser.\n\nOK = recuperar o rascunho\nCancelar = usar a versão publicada atual'
+          : 'Existe um rascunho local não publicado.\n\nOK = recuperar o rascunho\nCancelar = usar a versão publicada atual';
+      if(confirm(message)){
+        state=localData;
+        draftMeta={...local,data:localData};
+        markDirty(stale?'Rascunho recuperado · a versão publicada mudou entretanto':'Rascunho local recuperado');
+      }else{
+        clearDraft();
+      }
+    }else{
+      clearDraft();
+    }
+  }
+
+  render();
+  updateSyncInfo();
+}
+function save(r=true){
+  writeDraft();
+  if(r){
+    render();
+    markDirty();
+  }
+}
+function updateSyncInfo(){
+  const info=document.querySelector('#draftInfo');
+  if(!info)return;
+  if(draftMeta && !sameState(state,publishedSnapshot)){
+    const stale=Boolean(draftMeta.baseSha && publishedSha && draftMeta.baseSha!==publishedSha);
+    info.textContent=stale
+      ? 'Rascunho local · versão publicada alterada entretanto'
+      : 'Existem alterações por publicar';
+  }else{
+    info.textContent='Sincronizado com a versão publicada';
+  }
+}
 function isDivider(x){return x?.type==='divider'}
 function render(){
   $('#count').textContent=`(${state.links.length})`;
@@ -94,11 +193,12 @@ function showLogin(msg=''){
   document.querySelector('#loginError').textContent=msg;
 }
 async function showCMS(session){
+  currentSession=session;
   document.querySelector('#authScreen').hidden=true;
   document.querySelector('#cmsApp').hidden=false;
   document.querySelector('#userLabel').textContent=`${session.user.username} · ${session.user.role}`;
-  await init();
   applyRole(session);
+  await init();
 }
 async function checkSession(){
   try{
@@ -146,12 +246,18 @@ document.querySelector('#publish').onclick=async()=>{
   try{
     const out=await api('/api/publish',{
       method:'POST',
-      body:JSON.stringify({data:state,assets:pendingLogoAsset?{logo:{path:pendingLogoAsset.path,mime:pendingLogoAsset.mime,base64:pendingLogoAsset.base64}}:{}})
+      body:JSON.stringify({data:state,baseSha:publishedSha,assets:pendingLogoAsset?{logo:{path:pendingLogoAsset.path,mime:pendingLogoAsset.mime,base64:pendingLogoAsset.base64}}:{}})
     });
 
     btn.textContent='✓ Publicado';
     saveState.textContent='Publicado com sucesso. O GitHub Pages será atualizado automaticamente.';
-    document.querySelector('#publishState').textContent='🟢 Publicado';document.querySelector('#draftInfo').textContent='Sem alterações por publicar';document.querySelector('#lastPublish').textContent=new Date().toLocaleString('pt-PT');
+    publishedSha=out.file?.sha||publishedSha;
+    publishedSnapshot=structuredClone(state);
+    clearDraft();
+    document.querySelector('#publishState').textContent='🟢 Publicado';
+    document.querySelector('#publishState').classList.remove('dirty');
+    document.querySelector('#draftInfo').textContent='Sincronizado com a versão publicada';
+    document.querySelector('#lastPublish').textContent=new Date().toLocaleString('pt-PT');
     pendingLogoAsset=null;
 
     setTimeout(()=>{
@@ -171,6 +277,11 @@ document.querySelector('#publish').onclick=async()=>{
       showLogin('A sessão expirou. Inicia sessão novamente.');
       return;
     }
+    if(ex.status===409){
+      saveState.textContent='Conflito: existe uma versão publicada mais recente.';
+      alert('A publicação foi bloqueada porque outro utilizador/dispositivo publicou entretanto.\n\nRecarrega o CMS para comparar a versão publicada com o teu rascunho. O teu rascunho local foi preservado.');
+      return;
+    }
 
     saveState.textContent='Erro ao publicar.';
     alert('Não foi possível publicar: '+ex.message);
@@ -179,18 +290,15 @@ document.querySelector('#publish').onclick=async()=>{
 checkSession();
 
 
-// ===== V1.4.9.3 — User Management UI =====
-let currentSession=null, publishedSnapshot=null;
+// ===== V1.4.10.1 — CMS State Sync + User Management UI =====
+let currentSession=null;
 let pendingLogoAsset=null;
 
-function markDirty(){
+function markDirty(message='Existem alterações por publicar'){
   const el=document.querySelector('#publishState'), info=document.querySelector('#draftInfo');
   if(el){el.textContent='🟠 Alterações por publicar';el.classList.add('dirty')}
-  if(info)info.textContent='Existem alterações guardadas localmente';
+  if(info)info.textContent=message;
 }
-const originalSave=save;
-save=function(r=true){ originalSave(r); if(r) markDirty(); };
-
 document.querySelectorAll('.nav-btn').forEach(btn=>btn.addEventListener('click',async()=>{
   document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.cms-view').forEach(x=>x.classList.remove('active'));
