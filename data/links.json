@@ -19,7 +19,8 @@
       "subtitle": "Vem viver esta aventura connosco",
       "url": "https://docs.google.com/forms/d/e/1FAIpQLSd5QOdJHnFp8EPd-7sOhUibaNeIbjKeIVYOCRSCisbbq0yZZg/viewform?usp=dialog",
       "enabled": true,
-      "featured": true
+      "featured": true,
+      "type": "link"
     },
     {
       "id": "mue6j0cji32",
@@ -28,7 +29,15 @@
       "subtitle": "Reinscrição Ano 2026-27  (para escuteiros investidos)",
       "url": "https://docs.google.com/forms/d/e/1FAIpQLSdivDxFvhKwLtc8f3d0P0koZxQaVCvR-Xv8sN8vMvzhX8Ap_Q/viewform?usp=header",
       "enabled": true,
-      "featured": true
+      "featured": true,
+      "type": "link"
+    },
+    {
+      "id": "mue7k8qoubd",
+      "type": "divider",
+      "title": "",
+      "style": "fleur",
+      "enabled": true
     },
     {
       "id": "instagram",
@@ -37,7 +46,8 @@
       "subtitle": "Acompanha as nossas aventuras",
       "url": "https://www.instagram.com/agrupamento676",
       "enabled": true,
-      "featured": false
+      "featured": false,
+      "type": "link"
     },
     {
       "id": "facebook",
@@ -46,7 +56,8 @@
       "subtitle": "Notícias e comunidade",
       "url": "https://www.facebook.com/groups/134956749946444",
       "enabled": true,
-      "featured": false
+      "featured": false,
+      "type": "link"
     },
     {
       "id": "activities",
@@ -55,7 +66,8 @@
       "subtitle": "*brevemente* Agenda e novidades do Agrupamento",
       "url": "#",
       "enabled": true,
-      "featured": false
+      "featured": false,
+      "type": "link"
     },
     {
       "id": "site",
@@ -64,7 +76,8 @@
       "subtitle": "Conhece o Agrupamento 676",
       "url": "https://sites.google.com/view/676cristorei",
       "enabled": true,
-      "featured": false
+      "featured": false,
+      "type": "link"
     },
     {
       "id": "location",
@@ -73,7 +86,8 @@
       "subtitle": "Cristo-Rei · Vila Nova de Gaia",
       "url": "https://maps.app.goo.gl/43NF9yEc34NMvZpU8",
       "enabled": true,
-      "featured": false
+      "featured": false,
+      "type": "link"
     },
     {
       "id": "contact",
@@ -82,7 +96,8 @@
       "subtitle": "Fala connosco",
       "url": "mailto:geral.676@escutismo.pt?subject=contacto_links&body=corpo_do_email",
       "enabled": true,
-      "featured": false
+      "featured": false,
+      "type": "link"
     }
   ]
 }
