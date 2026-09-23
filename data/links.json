@@ -1,0 +1,84 @@
+{
+  "site": {
+    "eyebrow": "CORPO NACIONAL DE ESCUTAS",
+    "title": "Agrupamento",
+    "number": "676",
+    "place": "Cristo-Rei · Vila Nova de Gaia",
+    "motto": "Escutismo é viver a aventura.",
+    "mottoStrong": "Vem fazer parte dela."
+  },
+  "links": [
+    {
+      "id": "join",
+      "icon": "⚜",
+      "title": "Quero ser Escuteiro!",
+      "subtitle": "Vem viver esta aventura connosco",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSd5QOdJHnFp8EPd-7sOhUibaNeIbjKeIVYOCRSCisbbq0yZZg/viewform?usp=dialog",
+      "enabled": true,
+      "featured": true
+    },
+    {
+      "id": "mudtppdrxrf",
+      "icon": "🔗",
+      "title": "Reinscrição",
+      "subtitle": "reinscrição para o ano 26-2027",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSdivDxFvhKwLtc8f3d0P0koZxQaVCvR-Xv8sN8vMvzhX8Ap_Q/viewform?usp=header",
+      "enabled": true,
+      "featured": true
+    },
+    {
+      "id": "instagram",
+      "icon": "📸",
+      "title": "Instagram",
+      "subtitle": "Acompanha as nossas aventuras",
+      "url": "https://www.instagram.com/agrupamento676/",
+      "enabled": true,
+      "featured": false
+    },
+    {
+      "id": "facebook",
+      "icon": "ⓕ",
+      "title": "Facebook",
+      "subtitle": "Notícias e comunidade",
+      "url": "https://www.facebook.com/groups/134956749946444",
+      "enabled": true,
+      "featured": false
+    },
+    {
+      "id": "location",
+      "icon": "📍",
+      "title": "Onde estamos",
+      "subtitle": "Seminário Cristo-Rei · Vila Nova de Gaia",
+      "url": "https://maps.app.goo.gl/JiuDaxRe7DHgAXUH8",
+      "enabled": true,
+      "featured": false
+    },
+    {
+      "id": "contact",
+      "icon": "✉",
+      "title": "Contactar o Agrupamento",
+      "subtitle": "Fala connosco",
+      "url": "geral.676@escutismo.pt",
+      "enabled": true,
+      "featured": false
+    },
+    {
+      "id": "activities",
+      "icon": "📅",
+      "title": "Próximas atividades",
+      "subtitle": "*brevemente* Agenda e novidades do Agrupamento",
+      "url": "#",
+      "enabled": true,
+      "featured": false
+    },
+    {
+      "id": "site",
+      "icon": "🌐",
+      "title": "Visitar o nosso site",
+      "subtitle": "*brevemente*  Conhece o Agrupamento 676",
+      "url": "#",
+      "enabled": true,
+      "featured": false
+    }
+  ]
+}
