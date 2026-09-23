@@ -98,6 +98,23 @@
       "enabled": true,
       "featured": false,
       "type": "link"
+    },
+    {
+      "id": "muejykwdts6",
+      "type": "divider",
+      "title": "Catequese",
+      "style": "title",
+      "enabled": true
+    },
+    {
+      "id": "muek0f23e5x",
+      "type": "link",
+      "icon": "🔗",
+      "title": "Inscrições na catequese",
+      "subtitle": "Pastoral Juvenil do Seminário Cristo-Rei.",
+      "url": "https://forms.gle/QbN34ywoBeTH2JsD7",
+      "enabled": true,
+      "featured": false
     }
   ]
 }
