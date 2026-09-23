@@ -190,8 +190,7 @@ document.querySelector('#saveSite')?.addEventListener('click',()=>{
   document.querySelectorAll('[data-site]').forEach(i=>{state.site[i.dataset.site]=i.value.trim()});
   save(); render(); alert('Conteúdo do site guardado localmente.');
 });
-  save(); alert('Informações guardadas localmente.');
-});
+ 
 
 async function loadUsers(){
   const box=document.querySelector('#usersList'); if(!box)return;
