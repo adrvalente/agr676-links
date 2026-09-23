@@ -18,9 +18,18 @@
       "featured": true
     },
     {
+      "id": "instagram",
+      "icon": "📸",
+      "title": "Instagram 676",
+      "subtitle": "Acompanha as nossas aventuras",
+      "url": "#",
+      "enabled": true,
+      "featured": false
+    },
+    {
       "id": "facebook",
       "icon": "ⓕ",
-      "title": "Facebook 2",
+      "title": "Facebook",
       "subtitle": "Notícias e comunidade",
       "url": "#",
       "enabled": true,
@@ -31,15 +40,6 @@
       "icon": "📅",
       "title": "Próximas atividades",
       "subtitle": "Agenda e novidades do Agrupamento",
-      "url": "#",
-      "enabled": true,
-      "featured": false
-    },
-    {
-      "id": "instagram",
-      "icon": "📸",
-      "title": "Instagram",
-      "subtitle": "Acompanha as nossas aventuras",
       "url": "#",
       "enabled": true,
       "featured": false
