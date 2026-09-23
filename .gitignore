@@ -7,7 +7,7 @@
 # Backups locais
 # ----------------------------------------------------------
 _backup_/
-**/_backup_/
+/_backup_/
 
 # Ficheiros de backup
 *.bak
@@ -24,7 +24,7 @@ _backup_/
 .env.*
 !.env.example
 *.key
-*.pem
+.pem
 
 # Tokens / configuração privada local
 secrets.json
@@ -100,9 +100,9 @@ venv/
 # ----------------------------------------------------------
 # Ficheiros comprimidos / versões locais
 # ----------------------------------------------------------
-*.zip
-*.rar
-*.7z
+.zip
+.rar
+.7z
 
 # ----------------------------------------------------------
 # GitHub Pages
