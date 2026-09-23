@@ -15,18 +15,36 @@
     {
       "id": "join",
       "icon": "⚜",
-      "title": "Quero ser Escuteiro!",
+      "title": "Quero ser Escuteiro! Preenche o formulário",
       "subtitle": "Vem viver esta aventura connosco",
-      "url": "#",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSd5QOdJHnFp8EPd-7sOhUibaNeIbjKeIVYOCRSCisbbq0yZZg/viewform?usp=dialog",
       "enabled": true,
       "featured": true
+    },
+    {
+      "id": "mue6j0cji32",
+      "icon": "📣",
+      "title": "Reinscrição no 676",
+      "subtitle": "Reinscrição Ano 2026-27  (para escuteiros investidos)",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSdivDxFvhKwLtc8f3d0P0koZxQaVCvR-Xv8sN8vMvzhX8Ap_Q/viewform?usp=header",
+      "enabled": true,
+      "featured": true
+    },
+    {
+      "id": "instagram",
+      "icon": "📸",
+      "title": "Instagram",
+      "subtitle": "Acompanha as nossas aventuras",
+      "url": "https://www.instagram.com/agrupamento676",
+      "enabled": true,
+      "featured": false
     },
     {
       "id": "facebook",
       "icon": "ⓕ",
       "title": "Facebook",
       "subtitle": "Notícias e comunidade",
-      "url": "#",
+      "url": "https://www.facebook.com/groups/134956749946444",
       "enabled": true,
       "featured": false
     },
@@ -34,16 +52,7 @@
       "id": "activities",
       "icon": "📅",
       "title": "Próximas atividades",
-      "subtitle": "Agenda e novidades do Agrupamento",
-      "url": "#",
-      "enabled": true,
-      "featured": false
-    },
-    {
-      "id": "instagram",
-      "icon": "📸",
-      "title": "Instagram",
-      "subtitle": "Acompanha as nossas aventuras",
+      "subtitle": "*brevemente* Agenda e novidades do Agrupamento",
       "url": "#",
       "enabled": true,
       "featured": false
@@ -53,7 +62,7 @@
       "icon": "🌐",
       "title": "Visitar o nosso site",
       "subtitle": "Conhece o Agrupamento 676",
-      "url": "#",
+      "url": "https://sites.google.com/view/676cristorei",
       "enabled": true,
       "featured": false
     },
@@ -62,7 +71,7 @@
       "icon": "📍",
       "title": "Onde estamos",
       "subtitle": "Cristo-Rei · Vila Nova de Gaia",
-      "url": "#",
+      "url": "https://maps.app.goo.gl/43NF9yEc34NMvZpU8",
       "enabled": true,
       "featured": false
     },
@@ -71,7 +80,7 @@
       "icon": "✉",
       "title": "Contactar o Agrupamento",
       "subtitle": "Fala connosco",
-      "url": "#",
+      "url": "mailto:geral.676@escutismo.pt?subject=contacto_links&body=corpo_do_email",
       "enabled": true,
       "featured": false
     }
