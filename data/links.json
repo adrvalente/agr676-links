@@ -115,6 +115,13 @@
       "url": "https://forms.gle/QbN34ywoBeTH2JsD7",
       "enabled": true,
       "featured": false
+    },
+    {
+      "id": "muf7yu26uq5",
+      "type": "divider",
+      "title": "Seminário",
+      "style": "title",
+      "enabled": true
     }
   ]
 }
