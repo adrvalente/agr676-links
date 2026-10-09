@@ -40,6 +40,16 @@
       "enabled": true
     },
     {
+      "id": "mv0sx89tt2h",
+      "type": "link",
+      "icon": "🔗",
+      "title": "Núcleo | Abertura do Ano - Inscrição",
+      "subtitle": "Abertura do Ano Escutista Núcleo",
+      "url": "https://forms.gle/Fu31td7DudH4ch5J6",
+      "enabled": true,
+      "featured": true
+    },
+    {
       "id": "instagram",
       "icon": "📸",
       "title": "Instagram",
@@ -122,16 +132,6 @@
       "title": "Seminário",
       "style": "title",
       "enabled": true
-    },
-    {
-      "id": "mv0sx89tt2h",
-      "type": "link",
-      "icon": "🔗",
-      "title": "Núcleo | Abertura do Ano - Inscrição",
-      "subtitle": "Abertura do Ano Escutista Núcleo",
-      "url": "https://forms.gle/Fu31td7DudH4ch5J6",
-      "enabled": true,
-      "featured": true
     }
   ]
 }
