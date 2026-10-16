@@ -13,13 +13,6 @@
   },
   "links": [
     {
-      "id": "mue7k8qoubd",
-      "type": "divider",
-      "title": "",
-      "style": "fleur",
-      "enabled": true
-    },
-    {
       "id": "join",
       "icon": "⚜",
       "title": "Quero ser Escuteiro! Preenche o formulário",
@@ -38,6 +31,13 @@
       "enabled": true,
       "featured": true,
       "type": "link"
+    },
+    {
+      "id": "mue7k8qoubd",
+      "type": "divider",
+      "title": "",
+      "style": "fleur",
+      "enabled": true
     },
     {
       "id": "mv0sx89tt2h",
